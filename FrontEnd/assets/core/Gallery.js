@@ -5,10 +5,14 @@ export default class Gallery{
         this.addFilters();
     }
 
-    async display(){
+    async display(id = 0){
         let response = await fetch("http://localhost:5678/api/works");
         let works = await response.json();
+        if (id > 0) {
+            works = works.filter((work) => work.categoryId === id);
+        }
         const container = document.querySelector('.gallery');
+        container.innerHTML = ""; // Vide un element html
         for (let work of works){
             let figure = document.createElement("figure");
 
@@ -48,6 +52,6 @@ export default class Gallery{
     }
 
     onFilterClick(id){
-        console.log(this, id);
+        this.display(id);
     }
 }
