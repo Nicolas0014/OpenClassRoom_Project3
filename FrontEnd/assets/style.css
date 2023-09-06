@@ -212,3 +212,52 @@ footer nav ul {
 	color: white;
 	background-color: #1D6154;
 }
+
+
+/* PAGE DE LOG IN */
+
+
+.formulaire {
+	max-width: 380px;
+	margin: 0 auto;
+}
+
+.formulaire > h2 {
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.formulaire label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.formulaire input[type="email"],
+.formulaire input[type="password"] {
+	width: 100%;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	border: none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	box-sizing: border-box; /* Pour que la taille imposée ne se modifie pas en rajoutant les paddings*/
+}
+
+.formulaire input[type="submit"] {
+    background-color: #1D6154;
+    color: #fff;
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+	display: block;
+    margin: 0 auto 2rem auto; 
+}
+
+.formulaire .forgot-password {
+	text-align: center;
+}
+
+.formulaire .forgot-password a {
+	color: #000;
+	text-decoration: underline;
+}
