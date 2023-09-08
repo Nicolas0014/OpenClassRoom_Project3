@@ -144,7 +144,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -183,6 +183,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -248,12 +249,8 @@ footer nav ul {
 }
 
 .formulaire input[type="submit"] {
-    background-color: #1D6154;
-    color: #fff;
     padding: 0.6rem 2rem;
     border: none;
-    border-radius: 60px;
-    cursor: pointer;
 	display: block;
     margin: 0 auto 2rem auto; 
 }
@@ -266,3 +263,146 @@ footer nav ul {
 	color: #000;
 	text-decoration: underline;
 }
+
+/* MODALE */
+
+.modale {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background:rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modale-wrapper{
+	overflow: auto;
+	width: 630px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	box-sizing: border-box;
+	background-color: #fff;
+	padding: 60px 105px;
+	position: relative;
+	border-radius: 10px;
+}
+
+.modale-wrapper h2 {
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #000;
+}
+
+.modale-wrapper > i {
+	position: absolute;
+	top: 5%;
+	right: 5%;
+	cursor: pointer;
+	transform: scale(1.5);
+}
+
+.modale-wrapper input[type="submit"] {
+	width :auto;
+    padding: 0.8rem 4rem;
+    border: none;
+	display: block;
+	margin: 2.5rem auto 0 auto;
+}
+
+.modale-gallery{
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 25px;
+	padding-bottom: 3.75rem;
+    border-bottom: 1px solid grey;
+}
+
+.modale-gallery > figure {
+	position: relative;
+}
+
+.modale-gallery > figure > img {
+	width: 76.86px;
+	height: auto;
+}
+
+.modale-gallery > figure > .trash-box {
+	padding: 3px 4px;
+	background: #000;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	cursor: pointer;
+}
+
+.modale-gallery > figure > .trash-box i {
+	color: #fff;
+	transform: scale(0.9);
+}
+
+.modale-wrapper > form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.modale-wrapper > form > div {
+	display: flex;
+	flex-direction: column;
+}
+
+.modale-wrapper > form > .new-picture-container {
+	background: #E8F1F6;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1.5rem;
+	height: 195px;
+    box-sizing: border-box;
+	position: relative;
+}
+.modale-wrapper > form > .new-picture-container > i {
+	color: #B9C5CC;
+	font-size: 76px;
+}
+
+.modale-wrapper > form > .new-picture-container > label {
+	padding: 0.6rem 2rem;
+	background: #CBD6DC;
+	color: #306685;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.modale-wrapper > form > .new-picture-container > input {
+	opacity: 0;
+	height: 0;
+	padding: 0;
+}
+.modale-wrapper > form > .new-picture-container > span {
+	color: #444444;
+}
+
+.modale-wrapper > form > .new-picture-container > img {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 35%;
+}
+
+.modale-wrapper > form > .input-container > input,
+.modale-wrapper > form > .input-container > select {
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	border: none;
+	padding: 1rem;
+	margin-top: 0.5rem;
+}
+

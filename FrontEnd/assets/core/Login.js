@@ -32,7 +32,7 @@ export default class Login{
                     this.toHomePage();
                     const data = await response.json();
                     const token = data.token;
-                    window.localStorage.setItem("token", token);
+                    window.sessionStorage.setItem("token", token);
                     break;
                 default :
                   console.log(`Une erreur inconnue est survenue`);
