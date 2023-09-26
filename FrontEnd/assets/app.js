@@ -7,7 +7,7 @@ new Login(document.querySelector('.formulaire'));
 new Modale(document.getElementById('modale'));
 
 
-let token = window.sessionStorage.getItem("token");
+let token = window.localStorage.getItem("token");
 
 if (token) {
     console.log("Admin");

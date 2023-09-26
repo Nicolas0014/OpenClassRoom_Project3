@@ -128,8 +128,26 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	position: relative;
+    width: 200px;
+    margin: 0 auto 1em auto ;
 }
+
+#portfolio h2 a{
+	position: absolute;
+	font-size: 14px;
+	color: #000;
+	text-decoration: none;
+	transform: translate(100%,-50%);
+	top: 50%;
+	right: -2rem;
+}
+
+#portfolio h2 a i{
+	font-size: 16px;
+	margin-right: 8px;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -302,11 +320,26 @@ footer nav ul {
 
 .modale-wrapper > i {
 	position: absolute;
-	top: 5%;
-	right: 5%;
 	cursor: pointer;
+}
+
+.modale-wrapper > .fa-xmark {
+	top: 5%;
+	right: 5%;	
 	transform: scale(1.5);
 }
+
+.modale-wrapper > .fa-arrow-left {
+	top: 5%;
+	left: 5%;	
+	transform: scale(1.5);
+}
+
+.modale-wrapper > i {
+	top: 5%;
+	transform: scale(1.5);
+}
+
 
 .modale-wrapper input[type="submit"] {
 	width :auto;
@@ -393,9 +426,11 @@ footer nav ul {
 
 .modale-wrapper > form > .new-picture-container > img {
 	position: absolute;
-	top: 0;
-	height: 100%;
-	width: 35%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	max-height: 100%;
+	max-width: 100%;
 }
 
 .modale-wrapper > form > .input-container > input,

@@ -1,3 +1,5 @@
+import {stopPropagation, createDiv, createIcon, createImg, createInput, createLabel, createTitle} from "./functions.js"
+
 export default class Modale{
     constructor(container){
         this.container = container;
@@ -9,26 +11,30 @@ export default class Modale{
         let works = await response.json();
         const modaleWrapper = this.container.querySelector(".modale-wrapper");
         modaleWrapper.innerHTML = ""; 
+        
+        const modaleStop = this.container.querySelector(".js-modale-stop")
+        modaleStop.addEventListener('click', stopPropagation);
 
-        let title = this.createTitle("Galerie photo");
+        let title = createTitle("Galerie photo");
         modaleWrapper.appendChild(title);
 
-        let closeIcon = this.createIcon('fa-solid','fa-xmark');
+        let closeIcon = createIcon('fa-solid','fa-xmark');
+        closeIcon.classList.add("js-modale-close");
+        closeIcon.addEventListener('click', this.closeModale.bind(this));
         modaleWrapper.appendChild(closeIcon);
 
-        const modaleGallery = this.createDiv("modale-gallery");
-        modaleWrapper.appendChild(modaleGallery);
+        const modaleGallery = createDiv("modale-gallery");
 
         for (let work of works){
             let figure = document.createElement("figure");
 
-            let img = this.createImg(work.imageUrl,work.title);
+            let img = createImg(work.imageUrl,work.title);
             figure.appendChild(img);
 
             let trashbox = document.createElement("span");
             trashbox.classList.add('trash-box');
 
-            let trash = this.createIcon('fa-solid', 'fa-trash-can');
+            let trash = createIcon('fa-solid', 'fa-trash-can');
             trashbox.appendChild(trash);
 
             figure.appendChild(trashbox);
@@ -36,10 +42,12 @@ export default class Modale{
             modaleGallery.appendChild(figure);
         }
 
-        let input = this.createInput("submit","Ajouter une photo");
-        input.addEventListener('click',this.openAddProject.bind(this));
+        modaleWrapper.appendChild(modaleGallery);
 
+        let input = createInput("submit","Ajouter une photo");
+        input.addEventListener('click',this.openAddProject.bind(this));
         modaleWrapper.appendChild(input);
+        
     }
 
     addListenerOpen(){
@@ -50,10 +58,8 @@ export default class Modale{
     openModale(){        
         const modale = this.container;
         modale.style.display = null;
-        this.display();
         modale.addEventListener('click', this.closeModale.bind(this));
-        modale.querySelector(".js-modale-close").addEventListener('click', this.closeModale.bind(this));
-        modale.querySelector(".js-modale-stop").addEventListener('click', this.stopPropagation);
+        this.display();
     }
 
     closeModale(){
@@ -61,34 +67,37 @@ export default class Modale{
         modale.style.display = "none";
         modale.removeEventListener('click', this.closeModale);
         modale.querySelector(".js-modale-close").removeEventListener('click', this.closeModale);
-        modale.querySelector(".js-modale-stop").removeEventListener('click', this.stopPropagation);
+        modale.querySelector(".js-modale-stop").removeEventListener('click', stopPropagation);
     }
 
     openAddProject(){
         const modaleWrapper = this.container.querySelector(".modale-wrapper");
         modaleWrapper.innerHTML = "";
 
-        let title = this.createTitle("Ajout photo");
+        let title = createTitle("Ajout photo");
         modaleWrapper.appendChild(title);
 
-        let closeIcon = this.createIcon('fa-solid','fa-xmark');
+        let closeIcon = createIcon('fa-solid','fa-xmark');
+        closeIcon.addEventListener('click', this.closeModale.bind(this));
         modaleWrapper.appendChild(closeIcon);
 
-        let returnIcon = this.createIcon('fa-solid','fa-arrow-left');
+        let returnIcon = createIcon('fa-solid','fa-arrow-left');
         modaleWrapper.appendChild(returnIcon);
+        returnIcon.addEventListener('click', this.openModale.bind(this));
+
         
         let form = document.createElement("form");
 
-            let bgDiv = this.createDiv("new-picture-container");
+            let bgDiv = createDiv("new-picture-container");
 
-            let icon = this.createIcon("fa-regular", "fa-image");
+            let icon = createIcon("fa-regular", "fa-image");
             bgDiv.appendChild(icon);
 
-            let pictureLabel = this.createLabel("photo");
+            let pictureLabel = createLabel("photo");
             pictureLabel.innerHTML = "+ Ajouter photo";
             bgDiv.appendChild(pictureLabel);
 
-            let pictureInput = this.createInput("file", null, "photo");
+            let pictureInput = createInput("file", null, "photo");
             pictureInput.required = true;
             pictureInput.addEventListener("change", this.previewFile.bind(this));
             bgDiv.appendChild(pictureInput);
@@ -99,9 +108,9 @@ export default class Modale{
 
         form.appendChild(bgDiv);
 
-            let divTitle = this.createDiv("input-container");
-            let titleLabel = this.createLabel("titre");
-            let titleInput = this.createInput("text", null, "titre");
+            let divTitle = createDiv("input-container");
+            let titleLabel = createLabel("titre");
+            let titleInput = createInput("text", null, "titre");
             titleInput.required = true;
 
             divTitle.appendChild(titleLabel);
@@ -109,8 +118,8 @@ export default class Modale{
 
         form.appendChild(divTitle);
 
-            let divCategory = this.createDiv("input-container");
-            let categoryLabel = this.createLabel("categorie");
+            let divCategory = createDiv("input-container");
+            let categoryLabel = createLabel("categorie");
             let categorySelect = document.createElement("select");
             categorySelect.id = "categorie";            
             categorySelect.name = "categorie";
@@ -133,7 +142,7 @@ export default class Modale{
         form.appendChild(divCategory);
         modaleWrapper.appendChild(form);
 
-        let input = this.createInput("submit","Valider");
+        let input = createInput("submit","Valider");
         input.disabled = true;
         modaleWrapper.appendChild(input);
 
@@ -147,65 +156,20 @@ export default class Modale{
         // Appel à l'API pour POST
     }
 
-    stopPropagation(e){
-        e.stopPropagation();
-    }
-    
-    createTitle(content){
-        let title = document.createElement("h2");
-        title.innerHTML = content;
-        return title;
-    }
-
-    createInput(type, value= null, nameAndId= null){
-        let input = document.createElement("input");
-        input.type = type;
-
-        if (type === "submit"){
-            input.value = value;
-            return input;
-        } else {
-            input.id = nameAndId;
-            input.name = nameAndId;
-            return input;
-        }
-    }
-
-    createImg(src,alt){
-        let img = document.createElement("img");
-        img.src = src;
-        img.alt = alt;
-        return img;
-    }
-
-    createIcon(class1, class2){
-        let icon = document.createElement('i');
-        icon.classList.add(class1, class2);
-        return icon;
-    }
-
-    createLabel(forContent){
-        let label = document.createElement("label");
-        label.setAttribute("for", forContent);
-        label.innerHTML = forContent.charAt(0).toUpperCase() + forContent.slice(1); // Première lettre en majuscule
-        return label;
-    }
-
-    createDiv(className){
-        let div = document.createElement("div");
-        div.classList.add(className);
-        return div;
-    }
-
-    previewFile(){
+    previewFile(e){
+        const fileReader = new FileReader();
         const fileInput = document.getElementById('photo');
         const selectedFile = fileInput.files[0];
-
+        
         if (selectedFile) {
-            const container = document.querySelector(".new-picture-container");
-            container.innerHTML = "";
-            let img = this.createImg("./assets/images/" + selectedFile.name,"image à ajouter");
-            container.appendChild(img);
+            fileReader.onload = this.onFileLoad.bind(this);
+            fileReader.readAsDataURL(selectedFile); // Lire un fichier uploadé
         }
+    }
+
+    onFileLoad(e){
+        const container = document.querySelector(".new-picture-container");
+        let img = createImg(e.target.result,"image à ajouter");
+        container.appendChild(img);
     }
 }

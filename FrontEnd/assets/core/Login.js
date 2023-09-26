@@ -13,7 +13,7 @@ export default class Login{
                 password : event.target.querySelector("[name=password").value
             };
 
-            logs = JSON.stringify(logs);
+            logs = JSON.stringify(logs); // Transformer en texte au format JSON
 
             let response = await fetch("http://localhost:5678/api/users/login", {
                 method: "POST",
@@ -23,16 +23,14 @@ export default class Login{
 
             switch (response.status) {
                 case 404 :
-                    this.onIncorrectEmail();
-                    break;
                 case 401 :
-                    this.onIncorrectPassword();
+                    this.onIncorrectCredentials();
                     break;
                 case 200 :
                     this.toHomePage();
                     const data = await response.json();
                     const token = data.token;
-                    window.sessionStorage.setItem("token", token);
+                    window.localStorage.setItem("token", token);
                     break;
                 default :
                   console.log(`Une erreur inconnue est survenue`);
@@ -44,12 +42,7 @@ export default class Login{
         document.location.href="index.html"; 
     }
 
-    onIncorrectEmail(){
-        alert("Identifiant incorrect. Veuillez réessayer.")
+    onIncorrectCredentials(){
+        alert("Identifiant ou mot de passe incorrect. Veuillez réessayer.")
     }
-
-    onIncorrectPassword(){
-        alert("Mot de passe incorrect. Veuillez réessayer.")
-    }
-
 }
