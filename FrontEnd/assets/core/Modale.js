@@ -4,6 +4,7 @@ export default class Modale{
     constructor(container){
         this.container = container;
         this.addListenerOpen();
+        this.imgdata = null;
     }
 
     async display(){  
@@ -87,17 +88,18 @@ export default class Modale{
 
         
         let form = document.createElement("form");
+        form.addEventListener('submit', this.onSubmitForm.bind(this));
 
             let bgDiv = createDiv("new-picture-container");
 
             let icon = createIcon("fa-regular", "fa-image");
             bgDiv.appendChild(icon);
 
-            let pictureLabel = createLabel("photo");
+            let pictureLabel = createLabel("image");
             pictureLabel.innerHTML = "+ Ajouter photo";
             bgDiv.appendChild(pictureLabel);
 
-            let pictureInput = createInput("file", null, "photo");
+            let pictureInput = createInput("file", null, "image");
             pictureInput.required = true;
             pictureInput.addEventListener("change", this.previewFile.bind(this));
             bgDiv.appendChild(pictureInput);
@@ -109,8 +111,8 @@ export default class Modale{
         form.appendChild(bgDiv);
 
             let divTitle = createDiv("input-container");
-            let titleLabel = createLabel("titre");
-            let titleInput = createInput("text", null, "titre");
+            let titleLabel = createLabel("title");
+            let titleInput = createInput("text", null, "title");
             titleInput.required = true;
 
             divTitle.appendChild(titleLabel);
@@ -119,10 +121,10 @@ export default class Modale{
         form.appendChild(divTitle);
 
             let divCategory = createDiv("input-container");
-            let categoryLabel = createLabel("categorie");
+            let categoryLabel = createLabel("category");
             let categorySelect = document.createElement("select");
-            categorySelect.id = "categorie";            
-            categorySelect.name = "categorie";
+            categorySelect.id = "category";            
+            categorySelect.name = "category";
             categorySelect.required = true;
 
             const categoriesList = Array.from(document.querySelector(".filters").getElementsByTagName('div'));
@@ -143,17 +145,15 @@ export default class Modale{
         modaleWrapper.appendChild(form);
 
         let input = createInput("submit","Valider");
-        input.disabled = true;
-        modaleWrapper.appendChild(input);
+        form.appendChild(input);
 
     }
 
-    closeAddProject(){
-        // Recharger un display
-    }
-
-    onPictureSubmit(){
-        // Appel à l'API pour POST
+    onSubmitForm(e){
+        console.log(e.target)
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        debugger
     }
 
     previewFile(e){
@@ -169,7 +169,10 @@ export default class Modale{
 
     onFileLoad(e){
         const container = document.querySelector(".new-picture-container");
-        let img = createImg(e.target.result,"image à ajouter");
+        this.imgdata = e.target.result;
+        let img = createImg(this.imgdata,"image à ajouter");
         container.appendChild(img);
     }
+
+
 }
