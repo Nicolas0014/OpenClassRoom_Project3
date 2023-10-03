@@ -34,6 +34,7 @@ export default class Modale{
 
             let trashbox = document.createElement("span");
             trashbox.classList.add('trash-box');
+            trashbox.addEventListener('click', this.onDeleteFile.bind(this, work));
 
             let trash = createIcon('fa-solid', 'fa-trash-can');
             trashbox.appendChild(trash);
@@ -177,6 +178,30 @@ export default class Modale{
             console.log(err.message);
           }
         
+    }
+
+    async onDeleteFile(work){
+        try {
+            console.log(work)
+            if (window.confirm(`Voulez-vous supprimer ${work.title} de la liste des projets ?`)){
+                const response = await fetch(
+                    `http://localhost:5678/api/works/${work.id}`,
+                    
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    },
+                    method: 'DELETE',
+                },
+                )
+                this.openAddProject();
+                const result = await response.json();
+                console.log(result);
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+
     }
 
     previewFile(e){
