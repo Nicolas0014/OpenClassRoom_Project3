@@ -101,6 +101,7 @@ export default class Modale{
 
             let pictureInput = createInput("file", null, "image");
             pictureInput.required = true;
+            pictureInput.accept = 'accept=".png, .jpg, .jpeg"';
             pictureInput.addEventListener("change", this.previewFile.bind(this));
             bgDiv.appendChild(pictureInput);
 
@@ -133,7 +134,7 @@ export default class Modale{
             for (let category of categoriesList){
                 let categoryName = category.innerHTML;
                 let option = document.createElement("option");
-                option.value = categoryName;
+                option.value = category.dataset.id;
                 option.innerHTML = categoryName;
                 categorySelect.appendChild(option);
             }
@@ -149,16 +150,38 @@ export default class Modale{
 
     }
 
-    onSubmitForm(e){
-        console.log(e.target)
+    async onSubmitForm(e){
         e.preventDefault();
+        let token = window.localStorage.getItem("token");
         const formData = new FormData(e.target);
-        debugger
+    
+        try {
+            const response = await fetch(
+                'http://localhost:5678/api/works',
+                
+              {
+                headers: {
+                    // "Content-Type": "multipart/form-data",
+                    // "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                method: 'POST',
+                body: formData
+              },
+            )
+
+            const result = await response.json();
+            console.log(result);
+
+          } catch (err) {
+            console.log(err.message);
+          }
+        
     }
 
     previewFile(e){
         const fileReader = new FileReader();
-        const fileInput = document.getElementById('photo');
+        const fileInput = document.getElementById('image');
         const selectedFile = fileInput.files[0];
         
         if (selectedFile) {
@@ -174,5 +197,6 @@ export default class Modale{
         container.appendChild(img);
     }
 
-
 }
+
+let token = window.localStorage.getItem("token");

@@ -6,7 +6,6 @@ new Gallery(document.querySelector('.gallery'));
 new Login(document.querySelector('.formulaire'));
 new Modale(document.getElementById('modale'));
 
-
 let token = window.localStorage.getItem("token");
 
 if (token) {
