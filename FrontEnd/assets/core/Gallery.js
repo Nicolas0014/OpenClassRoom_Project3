@@ -5,6 +5,7 @@ export default class Gallery{
         this.addFilters();
     }
 
+    // Méthode pour afficher le portfolio sur la page principale (tri des projets possible)
     async display(id = 0){
         let response = await fetch("http://localhost:5678/api/works");
         let works = await response.json();
@@ -30,6 +31,7 @@ export default class Gallery{
         }
     }
 
+    // Méthode pour insérer les filtres des catégories sur le DOM (issus de la base de données)
     async addFilters(){
         let response = await fetch("http://localhost:5678/api/categories")
         let categories = await response.json();
@@ -52,6 +54,7 @@ export default class Gallery{
         }
     }
 
+    // Méthode pour relancer l'affichage des projets après avoir sélectionné une catégorie
     onFilterClick(id){
         this.display(id);
     }

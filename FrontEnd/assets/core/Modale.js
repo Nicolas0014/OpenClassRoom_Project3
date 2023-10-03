@@ -7,6 +7,7 @@ export default class Modale{
         this.imgdata = null;
     }
 
+    // Méthode pour afficher le contenu de la modale principale : liste des projets, leurs icones de suppression et un lien vers la modale suivante.
     async display(){  
         let response = await fetch("http://localhost:5678/api/works");
         let works = await response.json();
@@ -52,11 +53,13 @@ export default class Modale{
         
     }
 
+    // Méthode pour implémenter un écouteur d'événement (lien d'ouverture de la modale) sur le bouton "modifier"
     addListenerOpen(){
         const modalLink = document.querySelector('a[href*="'+this.container.id+'"]');
         modalLink.addEventListener('click', this.openModale.bind(this));
     }
 
+    // Méthode pour afficher la modale principale, ajouter un écouteur d'événement de fermeture et lancer la méthode display() pour afficher les projets
     openModale(){        
         const modale = this.container;
         modale.style.display = null;
@@ -64,6 +67,7 @@ export default class Modale{
         this.display();
     }
 
+    // Méthode pour cacher la modale et réinitialiser les écouteurs d'événements
     closeModale(){
         const modale = this.container;
         modale.style.display = "none";
@@ -72,6 +76,7 @@ export default class Modale{
         modale.querySelector(".js-modale-stop").removeEventListener('click', stopPropagation);
     }
 
+    // Méthode pour afficher le contenu de la 2ème modale (formulaire d'ajout de projet)
     openAddProject(){
         const modaleWrapper = this.container.querySelector(".modale-wrapper");
         modaleWrapper.innerHTML = "";
@@ -102,7 +107,7 @@ export default class Modale{
 
             let pictureInput = createInput("file", null, "image");
             pictureInput.required = true;
-            pictureInput.accept = 'accept=".png, .jpg, .jpeg"';
+            // pictureInput.accept = 'accept=".png, .jpg, .jpeg"';
             pictureInput.addEventListener("change", this.previewFile.bind(this));
             bgDiv.appendChild(pictureInput);
 
@@ -151,6 +156,7 @@ export default class Modale{
 
     }
 
+    // Méthode pour poster un nouveau projet
     async onSubmitForm(e){
         e.preventDefault();
         let token = window.localStorage.getItem("token");
@@ -170,6 +176,10 @@ export default class Modale{
                 body: formData
               },
             )
+            this.openAddProject(); // On se déplace vers la modale précédente et on actualise la liste des projets visibles
+
+            const event = new Event('submitForm'); // On créé un événement pour avertir que la méthode onSubmitForm a été appelé.
+            document.dispatchEvent(event);
 
             const result = await response.json();
             console.log(result);
@@ -180,6 +190,7 @@ export default class Modale{
         
     }
 
+    // Méthode pour supprimer un projet existant
     async onDeleteFile(work){
         try {
             console.log(work)
@@ -194,7 +205,7 @@ export default class Modale{
                     method: 'DELETE',
                 },
                 )
-                this.openAddProject();
+                this.openAddProject(); // On actualise la liste des projets visibles
                 const result = await response.json();
                 console.log(result);
             }
@@ -204,6 +215,7 @@ export default class Modale{
 
     }
 
+    // Méthode pour récupérer l'image insérée dans l'input et lancer la méthode onFileLoad le cas échéant
     previewFile(e){
         const fileReader = new FileReader();
         const fileInput = document.getElementById('image');
@@ -215,6 +227,7 @@ export default class Modale{
         }
     }
 
+    // Méthode pour avoir un visuel de l'image du nouveau projet dans le formulaire
     onFileLoad(e){
         const container = document.querySelector(".new-picture-container");
         this.imgdata = e.target.result;
@@ -224,4 +237,4 @@ export default class Modale{
 
 }
 
-let token = window.localStorage.getItem("token");
+let token = window.localStorage.getItem("token"); // Récupération du token d'admin autorisant l'ajout et la supression de projets

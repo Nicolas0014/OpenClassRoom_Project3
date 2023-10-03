@@ -2,17 +2,16 @@ import Gallery from "./core/Gallery.js"
 import Login from "./core/Login.js"
 import Modale from "./core/Modale.js"
 
-new Gallery(document.querySelector('.gallery'));
+const gallery = new Gallery(document.querySelector('.gallery'));
 new Login(document.querySelector('.formulaire'));
 new Modale(document.getElementById('modale'));
 
-let token = window.localStorage.getItem("token");
+let token = window.localStorage.getItem("token"); // Récupération du token d'admin permettant d'afficher le bouton "modifier" (accès à l'espace admin)
 
 if (token) {
-    console.log("Admin");
-    // Afficher le bouton "Modifier" à côté de "Mes projets"
-} else {
-    console.log("Visiteur simple");
-} 
+    document.querySelector('.js-modale').style.display = null
+} else {} 
 
-
+document.addEventListener('submitForm', () => {
+    gallery.display();
+})
