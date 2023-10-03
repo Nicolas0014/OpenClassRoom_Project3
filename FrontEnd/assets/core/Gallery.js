@@ -41,6 +41,7 @@ export default class Gallery{
         for (let category of categories){
             const filter = document.createElement("div");
             filter.innerText = category.name;
+            filter.dataset.id = category.id;
             filter.classList.add('filter');
             if (category.id === 0){
                 filter.classList.add('active');
