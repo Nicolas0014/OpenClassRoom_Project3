@@ -54,8 +54,16 @@ export default class Gallery{
         }
     }
 
-    // Méthode pour relancer l'affichage des projets après avoir sélectionné une catégorie
+    // Méthode pour relancer l'affichage des projets après avoir sélectionné une catégorie et mettre à jour la couleur des filtres
     onFilterClick(id){
         this.display(id);
+
+        const filterList = document.querySelectorAll('.filter');
+        for (let filter of filterList){
+            filter.classList.remove('active');
+            if (+filter.dataset.id === id){
+                filter.classList.add('active');
+            }
+        }
     }
 }

@@ -9,9 +9,15 @@ new Modale(document.getElementById('modale'));
 let token = window.localStorage.getItem("token"); // Récupération du token d'admin permettant d'afficher le bouton "modifier" (accès à l'espace admin)
 
 if (token) {
-    document.querySelector('.js-modale').style.display = null
-} else {} 
+    document.querySelector('.edition-mode').style.display = null;
+    document.querySelector('.js-modale').style.display = null;
+    document.querySelector('.log').innerHTML = "logout";
+} else {}
 
 document.addEventListener('submitForm', () => {
+    gallery.display();
+})
+
+document.addEventListener('deleteProject', () => {
     gallery.display();
 })

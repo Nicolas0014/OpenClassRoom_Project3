@@ -107,8 +107,9 @@ export default class Modale{
 
             let pictureInput = createInput("file", null, "image");
             pictureInput.required = true;
-            // pictureInput.accept = 'accept=".png, .jpg, .jpeg"';
+            pictureInput.accept = "image/*";
             pictureInput.addEventListener("change", this.previewFile.bind(this));
+            pictureInput.addEventListener("change", this.checkingFormData.bind(this));
             bgDiv.appendChild(pictureInput);
 
             let span = document.createElement("span");
@@ -121,6 +122,7 @@ export default class Modale{
             let titleLabel = createLabel("title");
             let titleInput = createInput("text", null, "title");
             titleInput.required = true;
+            titleInput.addEventListener("input", this.checkingFormData.bind(this));
 
             divTitle.appendChild(titleLabel);
             divTitle.appendChild(titleInput);
@@ -152,9 +154,17 @@ export default class Modale{
         modaleWrapper.appendChild(form);
 
         let input = createInput("submit","Valider");
+        input.setAttribute('disabled', 'true');
         form.appendChild(input);
-
     }
+
+    // Méthode pour vérifier que les champs du formulaire sont remplis
+    checkingFormData(){
+        const titleInput = document.getElementById('title');
+        const submitButton = document.querySelector('.modale-wrapper form input[type="submit"]');
+        (titleInput.value === "" || !this.imgdata) ? submitButton.setAttribute('disabled', 'true') : submitButton.removeAttribute('disabled');
+    }
+
 
     // Méthode pour poster un nouveau projet
     async onSubmitForm(e){
@@ -168,16 +178,15 @@ export default class Modale{
                 
               {
                 headers: {
-                    // "Content-Type": "multipart/form-data",
-                    // "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 method: 'POST',
                 body: formData
               },
             )
-            this.openAddProject(); // On se déplace vers la modale précédente et on actualise la liste des projets visibles
-
+            this.openAddProject(); // On réouvre la modale d'ajout de projets
+            this.imgdata = null; // On réinitialise la variable imgdata (pour la vérification du formulaire au nouvel ajout)
+            
             const event = new Event('submitForm'); // On créé un événement pour avertir que la méthode onSubmitForm a été appelé.
             document.dispatchEvent(event);
 
@@ -193,7 +202,6 @@ export default class Modale{
     // Méthode pour supprimer un projet existant
     async onDeleteFile(work){
         try {
-            console.log(work)
             if (window.confirm(`Voulez-vous supprimer ${work.title} de la liste des projets ?`)){
                 const response = await fetch(
                     `http://localhost:5678/api/works/${work.id}`,
@@ -205,7 +213,11 @@ export default class Modale{
                     method: 'DELETE',
                 },
                 )
-                this.openAddProject(); // On actualise la liste des projets visibles
+                this.openModale(); // On actualise la liste des projets visibles
+
+                const event = new Event('deleteProject'); // On créé un événement pour avertir que la méthode onDeleteFile a été appelé.
+                document.dispatchEvent(event);
+
                 const result = await response.json();
                 console.log(result);
             }

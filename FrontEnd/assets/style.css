@@ -56,7 +56,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 25px 0 75px 0;
 }
 section {
 	margin: 50px 0
@@ -237,6 +237,25 @@ footer nav ul {
 	background-color: #1D6154;
 }
 
+/* MODE ADMIN */
+
+.edition-mode {
+	background-color: #000;
+	height: 60px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.edition-mode span {
+	cursor: pointer;
+}
+
+.edition-mode span i {
+    font-size: 16px;
+    margin-right: 8px;
+}
 
 /* PAGE DE LOG IN */
 
@@ -280,6 +299,7 @@ footer nav ul {
 .formulaire .forgot-password a {
 	color: #000;
 	text-decoration: underline;
+	font-weight: bold;
 }
 
 /* MODALE */
@@ -393,6 +413,11 @@ footer nav ul {
 	flex-direction: column;
 }
 
+.modale-wrapper > form >input:disabled {
+	background-color: grey;
+	cursor: default;
+}
+
 .modale-wrapper > form > .new-picture-container {
 	background: #E8F1F6;
 	align-items: center;
@@ -413,6 +438,7 @@ footer nav ul {
 	color: #306685;
 	border-radius: 50px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .modale-wrapper > form > .new-picture-container > input {
@@ -420,6 +446,7 @@ footer nav ul {
 	height: 0;
 	padding: 0;
 }
+
 .modale-wrapper > form > .new-picture-container > span {
 	color: #444444;
 }

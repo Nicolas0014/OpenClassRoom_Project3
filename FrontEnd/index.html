@@ -14,13 +14,16 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+<div class="edition-mode">
+	<span stlye="display: none;"><i class="fa-regular fa-pen-to-square"></i>Mode édition</span>	
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="index.html">projets</a></li>
 			<li><a href="#">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li><a href="login.html" class="log">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -61,25 +64,6 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
-
-	<div class="container">
-        <h2>Ajout d'un élément</h2>
-        <form id="ajoutElementForm">
-			<label for="photo">Ajout d'une photo :</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required>
-
-            <label for="titre">Titre :</label>
-            <input type="text" id="titre" name="titre" required>
-
-            <label for="categorie">Catégorie :</label>
-            <select id="categorie" name="categorie" required>
-                <option value="">Sélectionnez une catégorie</option>
-                <!-- Les options seront ajoutées dynamiquement via JavaScript -->
-            </select>
-
-            <button type="submit">Ajouter</button>
-        </form>
-    </div>
 </main>
 
 <footer>
