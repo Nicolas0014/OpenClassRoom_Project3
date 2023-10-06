@@ -246,6 +246,8 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100vw;
+	margin-left: calc(-1 * ((100vw - 100%) / 2));
 }
 
 .edition-mode span {
@@ -326,6 +328,16 @@ footer nav ul {
 	padding: 60px 105px;
 	position: relative;
 	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.modale-wrapper .line {
+	height: 1px;
+	background: grey;
+	width: auto;
+	margin-top: 1rem;
 }
 
 .modale-wrapper h2 {
@@ -366,7 +378,7 @@ footer nav ul {
     padding: 0.8rem 4rem;
     border: none;
 	display: block;
-	margin: 2.5rem auto 0 auto;
+	margin: 0 auto;
 }
 
 .modale-gallery{
@@ -375,8 +387,6 @@ footer nav ul {
 	grid-template-columns: repeat(5, 1fr);
 	grid-column-gap: 10px;
 	grid-row-gap: 25px;
-	padding-bottom: 3.75rem;
-    border-bottom: 1px solid grey;
 }
 
 .modale-gallery > figure {

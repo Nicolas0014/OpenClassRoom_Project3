@@ -47,6 +47,9 @@ export default class Modale{
 
         modaleWrapper.appendChild(modaleGallery);
 
+        let line = createDiv("line");
+        modaleWrapper.appendChild(line);
+        
         let input = createInput("submit","Ajouter une photo");
         input.addEventListener('click',this.openAddProject.bind(this));
         modaleWrapper.appendChild(input);
@@ -71,6 +74,7 @@ export default class Modale{
     closeModale(){
         const modale = this.container;
         modale.style.display = "none";
+        console.log(modale.querySelector(".js-modale-close"))
         modale.removeEventListener('click', this.closeModale);
         modale.querySelector(".js-modale-close").removeEventListener('click', this.closeModale);
         modale.querySelector(".js-modale-stop").removeEventListener('click', stopPropagation);
@@ -85,6 +89,7 @@ export default class Modale{
         modaleWrapper.appendChild(title);
 
         let closeIcon = createIcon('fa-solid','fa-xmark');
+        closeIcon.classList.add("js-modale-close");
         closeIcon.addEventListener('click', this.closeModale.bind(this));
         modaleWrapper.appendChild(closeIcon);
 
@@ -153,6 +158,9 @@ export default class Modale{
         form.appendChild(divCategory);
         modaleWrapper.appendChild(form);
 
+        let line = createDiv("line");
+        form.appendChild(line);
+
         let input = createInput("submit","Valider");
         input.setAttribute('disabled', 'true');
         form.appendChild(input);
@@ -191,7 +199,6 @@ export default class Modale{
             document.dispatchEvent(event);
 
             const result = await response.json();
-            console.log(result);
 
           } catch (err) {
             console.log(err.message);
@@ -227,19 +234,25 @@ export default class Modale{
 
     }
 
-    // Méthode pour récupérer l'image insérée dans l'input et lancer la méthode onFileLoad le cas échéant
+    // Méthode pour récupérer l'image insérée dans l'input, masquer les éléments d'input et lancer la méthode onFileLoad le cas échéant
     previewFile(e){
         const fileReader = new FileReader();
         const fileInput = document.getElementById('image');
         const selectedFile = fileInput.files[0];
-        
+
+        const container = document.querySelector(".new-picture-container");
+        const childrenToHide = Array.from(container.children);
+        childrenToHide.forEach(child => {
+                child.style.display = "none";
+        });
+
         if (selectedFile) {
             fileReader.onload = this.onFileLoad.bind(this);
             fileReader.readAsDataURL(selectedFile); // Lire un fichier uploadé
         }
     }
 
-    // Méthode pour avoir un visuel de l'image du nouveau projet dans le formulaire
+    // Méthode pour avoir un visuel de l'image du nouveau projet dans le formulaire 
     onFileLoad(e){
         const container = document.querySelector(".new-picture-container");
         this.imgdata = e.target.result;
