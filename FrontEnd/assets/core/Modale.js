@@ -74,7 +74,6 @@ export default class Modale{
     closeModale(){
         const modale = this.container;
         modale.style.display = "none";
-        console.log(modale.querySelector(".js-modale-close"))
         modale.removeEventListener('click', this.closeModale);
         modale.querySelector(".js-modale-close").removeEventListener('click', this.closeModale);
         modale.querySelector(".js-modale-stop").removeEventListener('click', stopPropagation);
@@ -198,8 +197,6 @@ export default class Modale{
             const event = new Event('submitForm'); // On créé un événement pour avertir que la méthode onSubmitForm a été appelé.
             document.dispatchEvent(event);
 
-            const result = await response.json();
-
           } catch (err) {
             console.log(err.message);
           }
@@ -224,9 +221,6 @@ export default class Modale{
 
                 const event = new Event('deleteProject'); // On créé un événement pour avertir que la méthode onDeleteFile a été appelé.
                 document.dispatchEvent(event);
-
-                const result = await response.json();
-                console.log(result);
             }
         } catch (err) {
             console.log(err.message);

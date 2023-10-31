@@ -16,9 +16,10 @@ if (document.body.classList.contains('login-page')) {
     if (token) {
         document.querySelector('.edition-mode').style.display = null;
         document.querySelector('.js-modale').style.display = null;
-        document.querySelector('.log').innerHTML = "logout";
-    } else {}
-
+        document.querySelector('.logout').style.display = null;
+        document.querySelector('.login').style.display = "none";
+    }
+    
     document.addEventListener('submitForm', () => {
         gallery.display();
     })
@@ -28,3 +29,8 @@ if (document.body.classList.contains('login-page')) {
     })
 
 }
+
+const logOutLink = document.querySelector('.logout');
+logOutLink.addEventListener('click', () =>{
+    window.localStorage.removeItem("token");
+});

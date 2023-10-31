@@ -2,8 +2,6 @@ export default class Login{
     constructor(formulaire){
         this.formulaire = formulaire;
         this.addListenerConnexion();
-        // this.addListenerLogOut();
-        // this.token = "";
     }
 
     async addListenerConnexion(){
@@ -47,16 +45,4 @@ export default class Login{
     onIncorrectCredentials(){
         alert("Identifiant ou mot de passe incorrect. Veuillez réessayer.")
     }
-
-    // addListenerLogOut(){
-    //     const logOutLink = document.querySelector('.log');
-    //     logOutLink.addEventListener('click', this.logOut.bind(this));
-    //     console.log('ok')
-    // }
-
-    // logOut(){
-    //     if (this.token){
-    //         window.localStorage.removeItem("token");
-    //     }
-    // }
 }
