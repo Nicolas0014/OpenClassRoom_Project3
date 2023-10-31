@@ -56,7 +56,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 25px 0 75px 0;
 }
 section {
 	margin: 50px 0
@@ -95,6 +95,11 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav li a { 
+	text-decoration: none;
+	color: #000;
+}
+
 li:hover {
 	color: #B1663C;
 }
@@ -123,8 +128,26 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	position: relative;
+    width: 200px;
+    margin: 0 auto 1em auto ;
 }
+
+#portfolio h2 a{
+	position: absolute;
+	font-size: 14px;
+	color: #000;
+	text-decoration: none;
+	transform: translate(100%,-50%);
+	top: 50%;
+	right: -2rem;
+}
+
+#portfolio h2 a i{
+	font-size: 16px;
+	margin-right: 8px;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -139,7 +162,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -178,11 +201,280 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+.filters {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	margin-bottom : 2em;
+	justify-content: center;
+}
+
+.filters .filter{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	text-align: center;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	padding: 1rem 2rem;
+	transition: all .3s ease-in-out;
+	cursor: pointer;
+} 
+
+.filters .filter.active,
+.filters .filter:hover{
+	color: white;
+	background-color: #1D6154;
+}
+
+/* MODE ADMIN */
+
+.edition-mode {
+	background-color: #000;
+	height: 60px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	margin-left: calc(-1 * ((100vw - 100%) / 2));
+}
+
+.edition-mode span {
+	cursor: pointer;
+}
+
+.edition-mode span i {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+/* PAGE DE LOG IN */
+
+
+.formulaire {
+	max-width: 380px;
+	margin: 0 auto;
+}
+
+.formulaire > h2 {
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.formulaire label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.formulaire input[type="email"],
+.formulaire input[type="password"] {
+	width: 100%;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	border: none;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	box-sizing: border-box; /* Pour que la taille imposée ne se modifie pas en rajoutant les paddings*/
+}
+
+.formulaire input[type="submit"] {
+    padding: 0.6rem 2rem;
+    border: none;
+	display: block;
+    margin: 0 auto 2rem auto; 
+}
+
+.formulaire .forgot-password {
+	text-align: center;
+}
+
+.formulaire .forgot-password a {
+	color: #000;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+/* MODALE */
+
+.modale {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background:rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modale-wrapper{
+	overflow: auto;
+	width: 630px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	box-sizing: border-box;
+	background-color: #fff;
+	padding: 60px 105px;
+	position: relative;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.modale-wrapper .line {
+	height: 1px;
+	background: grey;
+	width: auto;
+	margin-top: 1rem;
+}
+
+.modale-wrapper h2 {
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #000;
+}
+
+.modale-wrapper > i {
+	position: absolute;
+	cursor: pointer;
+}
+
+.modale-wrapper > .fa-xmark {
+	top: 5%;
+	right: 5%;	
+	transform: scale(1.5);
+}
+
+.modale-wrapper > .fa-arrow-left {
+	top: 5%;
+	left: 5%;	
+	transform: scale(1.5);
+}
+
+.modale-wrapper > i {
+	top: 5%;
+	transform: scale(1.5);
+}
+
+
+.modale-wrapper input[type="submit"] {
+	width :auto;
+    padding: 0.8rem 4rem;
+    border: none;
+	display: block;
+	margin: 0 auto;
+}
+
+.modale-gallery{
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 25px;
+}
+
+.modale-gallery > figure {
+	position: relative;
+}
+
+.modale-gallery > figure > img {
+	width: 76.86px;
+	height: auto;
+}
+
+.modale-gallery > figure > .trash-box {
+	padding: 3px 4px;
+	background: #000;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	cursor: pointer;
+}
+
+.modale-gallery > figure > .trash-box i {
+	color: #fff;
+	transform: scale(0.9);
+}
+
+.modale-wrapper > form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.modale-wrapper > form > div {
+	display: flex;
+	flex-direction: column;
+}
+
+.modale-wrapper > form >input:disabled {
+	background-color: grey;
+	cursor: default;
+}
+
+.modale-wrapper > form > .new-picture-container {
+	background: #E8F1F6;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1.5rem;
+	height: 195px;
+    box-sizing: border-box;
+	position: relative;
+}
+.modale-wrapper > form > .new-picture-container > i {
+	color: #B9C5CC;
+	font-size: 76px;
+}
+
+.modale-wrapper > form > .new-picture-container > label {
+	padding: 0.6rem 2rem;
+	background: #CBD6DC;
+	color: #306685;
+	border-radius: 50px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.modale-wrapper > form > .new-picture-container > input {
+	opacity: 0;
+	height: 0;
+	padding: 0;
+}
+
+.modale-wrapper > form > .new-picture-container > span {
+	color: #444444;
+}
+
+.modale-wrapper > form > .new-picture-container > img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.modale-wrapper > form > .input-container > input,
+.modale-wrapper > form > .input-container > select {
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	border: none;
+	padding: 1rem;
+	margin-top: 0.5rem;
 }
 
